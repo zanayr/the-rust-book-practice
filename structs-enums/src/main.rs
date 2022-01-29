@@ -24,6 +24,7 @@ impl Rectangle {
 }
 
 fn main() {
+    // Structs
     let rect1 = Rectangle {
         height: 50,
         width: 30,
@@ -41,4 +42,52 @@ fn main() {
     println!("Can rect1 hold rect2? {}!", rect1.can_hold(&rect2));
     println!("Can rect1 hold rect3? {}!", rect1.can_hold(&rect3));
     println!("What about a 25 x 25 square? {}!", rect1.can_hold(&Rectangle::square(25)));
+
+    // Enums & Matching
+    #[derive(Debug)]
+    enum Nickels {
+        Liberty,
+        Buffalo,
+        Shield,
+        Jefferson,
+    }
+    enum Coin {
+        Penny,
+        Nickel(Nickels),
+        Dime,
+        Quarter,
+    }
+
+    fn value_in_cents(coin: Coin) -> u8 {
+        match coin {
+            Coin::Penny => {
+                println!("Lucky penny!");
+                1
+            }
+            Coin::Nickel(nickel) => {
+                println!("Wow a {:?} nickel! Neat!", nickel);
+                5
+            },
+            Coin::Dime => 10,
+            Coin::Quarter => 25,
+        }
+    }
+
+    value_in_cents(Coin::Penny);
+
+    // Match all options
+    let roll = 7;
+    match roll {
+        3 => add_fancy_hat(),
+        7 => remove_fancy_hat(),
+        _ => (),
+    }
+
+    fn add_fancy_hat() {
+        println!("Here, take this fancy hat someone left behind");
+    }
+
+    fn remove_fancy_hat() {
+        println!("Remove your fancy hat, sir");
+    }
 }
